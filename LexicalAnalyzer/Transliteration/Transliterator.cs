@@ -9,8 +9,14 @@ public class Transliterator : ITransliterator<ClassifiedLetter>
     private string text = string.Empty;
     private int actualIndex = 0;
 
+    /// <summary>
+    /// Текущий индекс строки в тексте (нумерация с 0).
+    /// </summary>
     public int CurLineIndex { get; private set; } = 0;
 
+    /// <summary>
+    /// Текущий индекс символа в строке (нумерация с 0).
+    /// </summary>
     public int CurSumIndex { get; private set; } = -1;
 
     /// <summary>
@@ -23,6 +29,8 @@ public class Transliterator : ITransliterator<ClassifiedLetter>
             // Сбрасываем позицию чтения при установке нового текста
             text = value ?? throw new ArgumentNullException(nameof(value));
             actualIndex = 0;
+            CurLineIndex = 0;
+            CurSumIndex = -1;
         }
     }
 
@@ -39,7 +47,10 @@ public class Transliterator : ITransliterator<ClassifiedLetter>
         if (text[actualIndex] == '\n')
         {
             CurLineIndex++;
-            CurSumIndex = -1;
+
+            //Для того, чтобы перед чтением первого новой строки CurSumIndex был равен -1
+            //и в дальнейшем не заходил дальше прочитанного символа.
+            CurSumIndex = -2;
         }
 
         // Обновляем позицию относительно строки, передвигаем указатель и возвращаем литер.

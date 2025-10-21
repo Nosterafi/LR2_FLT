@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LexicalMachine", "LexicalAn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transliteration", "LexicalAnalyzer\Transliteration\Transliteration.csproj", "{8C46D419-2462-D9DD-4EA0-F0BAEE5511F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parser", "Parser\Parser.csproj", "{F3011198-6F9A-4B16-97E7-846C75D81A5E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parsing", "Parser\Parsing.csproj", "{F3011198-6F9A-4B16-97E7-846C75D81A5E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{01D01D2E-7531-4F00-A943-A2E090D61BAB}"
 EndProject

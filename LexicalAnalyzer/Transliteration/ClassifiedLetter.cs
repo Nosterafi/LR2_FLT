@@ -11,7 +11,7 @@ public readonly struct ClassifiedLetter : IClassifiedLetter
     private const char commentEnd = '}';
 
     // Допустимые символы для классификации
-    private readonly  HashSet<char> validLetters = ['a', 'b', 'c', 'd'];
+    private readonly HashSet<char> validLetters = ['a', 'b', 'c', 'd'];
     private readonly HashSet<char> validDigits = ['0', '1'];
 
     /// <summary>
@@ -24,8 +24,14 @@ public readonly struct ClassifiedLetter : IClassifiedLetter
     /// </summary>
     private readonly LetterType type;
 
+    /// <summary>
+    /// Строковое представление символа.
+    /// </summary>
     public string Value => value.ToString();
 
+    /// <summary>
+    /// Тип классифицированного символа.
+    /// </summary>
     public LetterType Type => type;
 
     /// <summary>
@@ -57,6 +63,9 @@ public readonly struct ClassifiedLetter : IClassifiedLetter
             type = LetterType.Other;
     }
 
+    /// <summary>
+    /// Определяет, равен ли текущий объект другому объекту.
+    /// </summary>
     public override readonly bool Equals(object? obj)
     {
         if (obj is ClassifiedLetter other)
@@ -65,15 +74,27 @@ public readonly struct ClassifiedLetter : IClassifiedLetter
         return false;
     }
 
+    /// <summary>
+    /// Возвращает хэш-код для текущего объекта.
+    /// </summary>
     public override int GetHashCode() => HashCode.Combine(Type, Value);
 
+    /// <summary>
+    /// Возвращает строковое представление классифицированного символа.
+    /// </summary>
     public override string ToString() => $"{Type.ToString()} {Value.ToString()}";
 
+    /// <summary>
+    /// Определяет, равны ли два экземпляра ClassifiedLetter.
+    /// </summary>
     public static bool operator ==(ClassifiedLetter left, ClassifiedLetter right)
     {
         return left.Equals(right);
     }
 
+    /// <summary>
+    /// Определяет, не равны ли два экземпляра ClassifiedLetter.
+    /// </summary>
     public static bool operator !=(ClassifiedLetter left, ClassifiedLetter right)
     {
         return !(left == right);

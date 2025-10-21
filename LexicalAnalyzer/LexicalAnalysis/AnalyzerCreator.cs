@@ -14,7 +14,11 @@ public static class AnalyzerCreator
     /// </summary>
     public static LexicalAnalyzer Create(string text)
     {
-        var result = new LexicalAnalyzer(text);
+        var result = new LexicalAnalyzer
+        {
+            Text = text
+        };
+
         result.Machines.Add(CreateNumberMachine());
         result.Machines.Add(CreateIdentifierMachine());
 

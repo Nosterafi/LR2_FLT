@@ -1,13 +1,13 @@
-﻿using System.Text;
+﻿using LexicalMachine;
 using Transliteration;
-using LexicalMachine;
+using System.Text;
 
 namespace LexicalAnalysis
 {
     /// <summary>
     /// Лексический анализатор, выполняющий разбор исходного текста на токены с использованием конечных автоматов.
     /// </summary>
-    public class LexicalAnalyzer
+    public class LexicalAnalyzer : ILexicalAnalizer
     {
         private readonly ITransliterator<ClassifiedLetter> transliterator = new Transliterator();
         private ClassifiedLetter curLetter;
@@ -15,17 +15,19 @@ namespace LexicalAnalysis
         /// <summary>
         /// Список зарегистрированных конечных автоматов для распознавания токенов.
         /// </summary>
-        public readonly List<StateMachine> Machines = new();
+        private readonly List<StateMachine> machines = new();
 
-        /// <summary>
-        /// Инициализирует новый экземпляр класса <see cref="LexicalAnalyzer"/>.
-        /// </summary>
-        public LexicalAnalyzer(string text)
+        public List<StateMachine> Machines => machines;
+
+        public string Text
         {
-            ArgumentNullException.ThrowIfNull(text, nameof(text));
+            set
+            {
+                ArgumentNullException.ThrowIfNull(value, nameof(value));
 
-            transliterator.Text = text;
-            curLetter = transliterator.GetNextLetter();
+                transliterator.Text = value;
+                ReadNextLetter();
+            }
         }
 
         /// <summary>
@@ -59,8 +61,8 @@ namespace LexicalAnalysis
                 }
 
             throw new LexAnException($"Неверный символ '{curLetter.Value}'",
-                transliterator.CurLineIndex,
-                transliterator.CurSumIndex);
+                transliterator.CurLineIndex + 1,
+                transliterator.CurSumIndex + 1);
         }
 
         /// <summary>
@@ -83,7 +85,7 @@ namespace LexicalAnalysis
                 buffer.Append(curLetter.Value);
                 currentState = nextState;
 
-                curLetter = transliterator.GetNextLetter();
+                ReadNextLetter();
             }
         }
 
@@ -109,7 +111,7 @@ namespace LexicalAnalysis
         private void SkipSpaces()
         {
             while (curLetter.Type == LetterType.Space)
-                curLetter = transliterator.GetNextLetter();
+                ReadNextLetter();
         }
 
         /// <summary>
@@ -126,7 +128,7 @@ namespace LexicalAnalysis
             // Чтение содержимого комментария до закрывающей скобки
             while (curLetter.Type != LetterType.CommentEnd)
             {
-                curLetter = transliterator.GetNextLetter();
+                ReadNextLetter();
 
                 // Проверка незакрытого комментария в конце текста
                 if (curLetter.Type == LetterType.EndOfText)
@@ -134,7 +136,7 @@ namespace LexicalAnalysis
             }
 
             // Пропуск закрывающей скобки комментария
-            curLetter = transliterator.GetNextLetter();
+            ReadNextLetter();
         }
 
         /// <summary>
@@ -143,8 +145,14 @@ namespace LexicalAnalysis
         private void SkipEnters()
         {
             while (curLetter.Type == LetterType.EndOfLine)
-                transliterator.GetNextLetter();
+                ReadNextLetter();
         }
+
+        /// <summary>
+        /// Читает следующий символ и сохраняет его в curLetter.
+        /// </summary>
+        private void ReadNextLetter() =>
+            curLetter = transliterator.GetNextLetter();
     }
 }
 
