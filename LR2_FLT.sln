@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transliteration", "LexicalA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parsing", "Parser\Parsing.csproj", "{F3011198-6F9A-4B16-97E7-846C75D81A5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{01D01D2E-7531-4F00-A943-A2E090D61BAB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{C363F4EE-860F-44AC-A29A-8A239C218F51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +37,10 @@ Global
 		{F3011198-6F9A-4B16-97E7-846C75D81A5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3011198-6F9A-4B16-97E7-846C75D81A5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3011198-6F9A-4B16-97E7-846C75D81A5E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{01D01D2E-7531-4F00-A943-A2E090D61BAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{01D01D2E-7531-4F00-A943-A2E090D61BAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{01D01D2E-7531-4F00-A943-A2E090D61BAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{01D01D2E-7531-4F00-A943-A2E090D61BAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C363F4EE-860F-44AC-A29A-8A239C218F51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C363F4EE-860F-44AC-A29A-8A239C218F51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C363F4EE-860F-44AC-A29A-8A239C218F51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C363F4EE-860F-44AC-A29A-8A239C218F51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
