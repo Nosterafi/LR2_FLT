@@ -1,5 +1,4 @@
-﻿using LexicalAnalysis;
-using LexicalMachine;
+﻿using LexicalMachine;
 using Transliteration;
 
 namespace LexicalAnalysis;

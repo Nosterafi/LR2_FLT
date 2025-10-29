@@ -18,7 +18,7 @@ public class LexAnException : Exception
     /// <summary>
     /// Индекс символа в строке, где возникла ошибка.
     /// </summary>
-    public int SymStartIndex => symIndex;
+    public int SymIndex => symIndex;
 
     /// <summary>
     /// Инициализирует новый экземпляр класса <see cref="LexAnException"/>.

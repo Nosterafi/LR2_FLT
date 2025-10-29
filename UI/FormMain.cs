@@ -44,10 +44,10 @@ namespace UI
                 // В тексте была обнаружена лексическая ошибка.
 
                 // Добавляем описание ошибки в поле сообщений.
-                richTextBoxMessages.AppendText(String.Format("Лексическая ошибка ({0},{1}): {2}", lexAnException.LineIndex + 1, lexAnException.SymStartIndex + 1, lexAnException.Message));
+                richTextBoxMessages.AppendText(String.Format("Лексическая ошибка ({0},{1}): {2}", lexAnException.LineIndex + 1, lexAnException.SymIndex + 1, lexAnException.Message));
 
                 // Располагаем курсор в исходном тексте на позиции ошибки.
-                LocateCursorAtErrorPosition(lexAnException.LineIndex, lexAnException.SymStartIndex);
+                LocateCursorAtErrorPosition(lexAnException.LineIndex, lexAnException.SymIndex);
             }
         }
 
