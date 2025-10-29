@@ -44,14 +44,16 @@ namespace LexicalAnalysis
                     transliterator.CurLineIndex,
                     transliterator.CurSumIndex);
 
+            var tokenLineIndex = transliterator.CurLineIndex;
+            var tokenSumIndex = transliterator.CurSumIndex;
+
             // Попытка применить каждый зарегистрированный автомат
             foreach (var machine in Machines)
+            {
                 if (machine.IsApplicated(curLetter))
                 {
-                    var tokenLineIndex = transliterator.CurLineIndex;
-                    var tokenSumIndex = transliterator.CurSumIndex;
-
                     var result = RunStateMachine(machine);
+
                     if (result.Success)
                         return new(
                             result.Buffer,
@@ -59,10 +61,11 @@ namespace LexicalAnalysis
                             tokenLineIndex,
                             tokenSumIndex);
                 }
-
+            }
+                
             throw new LexAnException($"Неверный символ '{curLetter.Value}'",
-                transliterator.CurLineIndex + 1,
-                transliterator.CurSumIndex + 1);
+                transliterator.CurLineIndex,
+                transliterator.CurSumIndex);
         }
 
         /// <summary>

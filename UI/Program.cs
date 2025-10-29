@@ -1,3 +1,8 @@
+using LexicalAnalysis;
+using LexicalMachine;
+using Parsing;
+using Transliteration;
+
 namespace UI
 {
     internal static class Program
@@ -8,8 +13,8 @@ namespace UI
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
+            //// To customize application configuration such as set high DPI settings or default font,
+            //// see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new FormMain());
         }

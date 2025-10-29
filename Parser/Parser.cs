@@ -65,7 +65,7 @@ public class Parser : IParser
             ReadNextToken();
             A();
         }
-        else ThrowSyntaxError("Ожидалось слово из букв.");
+        else ThrowSyntaxError("Ожидалось продолжение текста.");
     }
 
     /// <summary>
@@ -90,6 +90,6 @@ public class Parser : IParser
     private void ThrowSyntaxError(string message) =>
         throw new SynAnException(
             message,
-            curToken.LineIndex + 1,
-            curToken.SymStartIndex + 1);
+            curToken.LineIndex,
+            curToken.SymStartIndex);
 }

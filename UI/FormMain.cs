@@ -34,7 +34,7 @@ namespace UI
                 // В тексте была обнаружена синтаксическая ошибка.
 
                 // Добавляем описание ошибки в поле сообщений.
-                richTextBoxMessages.AppendText(String.Format("Синтаксическая ошибка ({0},{1}): {2}", synAnException.LineIndex, synAnException.SymIndex, synAnException.Message));
+                richTextBoxMessages.AppendText(String.Format("Синтаксическая ошибка ({0},{1}): {2}", synAnException.LineIndex + 1, synAnException.SymIndex + 1, synAnException.Message));
 
                 // Располагаем курсор в исходном тексте на позиции ошибки.
                 LocateCursorAtErrorPosition(synAnException.LineIndex, synAnException.SymIndex);
@@ -44,24 +44,22 @@ namespace UI
                 // В тексте была обнаружена лексическая ошибка.
 
                 // Добавляем описание ошибки в поле сообщений.
-                richTextBoxMessages.AppendText(String.Format("Лексическая ошибка ({0},{1}): {2}", lexAnException.LineIndex, lexAnException.SymIndex, lexAnException.Message));
+                richTextBoxMessages.AppendText(String.Format("Лексическая ошибка ({0},{1}): {2}", lexAnException.LineIndex + 1, lexAnException.SymStartIndex + 1, lexAnException.Message));
 
                 // Располагаем курсор в исходном тексте на позиции ошибки.
-                LocateCursorAtErrorPosition(lexAnException.LineIndex, lexAnException.SymIndex);
+                LocateCursorAtErrorPosition(lexAnException.LineIndex, lexAnException.SymStartIndex);
             }
         }
 
         // Расположить курсор в исходном тексте на позиции ошибки.
         private void LocateCursorAtErrorPosition(int lineIndex, int symIndex)
         {
-            lineIndex -= 1;
-
             int k = 0;
 
             // Подсчитываем суммарное количество символов во всех строках до lineIndex.
             for (int i = 0; i < lineIndex; i++)
             {
-                k += richTextBoxInput.Lines[i].Count() + 1;
+                k += richTextBoxInput.Lines[i].Length + 1;
             }
 
             // Прибавляем символы из строки lineIndex.

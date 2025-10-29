@@ -7,17 +7,18 @@
 public class Transliterator : ITransliterator<ClassifiedLetter>
 {
     private string text = string.Empty;
-    private int actualIndex = 0;
+    private int actualIndex;
+    private bool transferFlag;
 
     /// <summary>
     /// Текущий индекс строки в тексте (нумерация с 0).
     /// </summary>
-    public int CurLineIndex { get; private set; } = 0;
+    public int CurLineIndex { get; private set; }
 
     /// <summary>
     /// Текущий индекс символа в строке (нумерация с 0).
     /// </summary>
-    public int CurSumIndex { get; private set; } = -1;
+    public int CurSumIndex { get; private set; }
 
     /// <summary>
     /// Устанавливает текст для анализа и сбрасывает текущую позицию чтения в начало.
@@ -28,9 +29,12 @@ public class Transliterator : ITransliterator<ClassifiedLetter>
         {
             // Сбрасываем позицию чтения при установке нового текста
             text = value ?? throw new ArgumentNullException(nameof(value));
+
             actualIndex = 0;
             CurLineIndex = 0;
-            CurSumIndex = -1;
+            CurSumIndex = 0;
+            
+            transferFlag = false;
         }
     }
 
@@ -40,21 +44,35 @@ public class Transliterator : ITransliterator<ClassifiedLetter>
     /// </summary>
     public ClassifiedLetter GetNextLetter()
     {
-        // Проверяем, достигли ли конца текста
-        if (actualIndex >= text.Length)
-            return new(); // Возвращаем маркер конца текста
-
-        if (text[actualIndex] == '\n')
+        // Если происходит переход на новую строку, то увеличиваем номер строки и обнуляем индекс относительно её
+        if (transferFlag)
         {
             CurLineIndex++;
-
-            //Для того, чтобы перед чтением первого новой строки CurSumIndex был равен -1
-            //и в дальнейшем не заходил дальше прочитанного символа.
-            CurSumIndex = -2;
+            CurSumIndex = -1;
+            transferFlag = false;
         }
 
-        // Обновляем позицию относительно строки, передвигаем указатель и возвращаем литер.
-        CurSumIndex++;
+        // Проверяем, достигли ли конца текста
+        if (actualIndex == text.Length)
+        {
+            CurSumIndex++;
+            actualIndex++;
+            return new(); // Возвращаем маркер конца текста
+        }
+
+        // При попытке получить символ после конца анализа возвращаем конец текста
+        if (actualIndex > text.Length)
+            return new();
+
+        // Если встречен символ перехода на новую строку, указываем на необходимость перехода на новую строку
+        // при следующем вызове
+        if (text[actualIndex] == '\n')
+            transferFlag = true;
+        
+        // Обновляем позицию относительно строки, передвигаем указатель и возвращаем литер
+        // Если был совершён переход на новую строку, то увеличение CurSumIndex не требуется
+        if (actualIndex > 0) CurSumIndex++;
+
         return new(text[actualIndex++]);
     }
 }
