@@ -5,7 +5,7 @@ namespace UI
 {
     public partial class FormMain : Form
     {
-        private readonly Parser parser = new();
+        private readonly IParser parser = new Parser();
 
         public FormMain()
         {
